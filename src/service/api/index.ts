@@ -1,12 +1,11 @@
 import axios from "axios";
 
-export const API_URL_DEV = "http://localhost:8080";
-export const API_URL_PROD = "http://localhost:8080";
+const isDev = window.location.hostname === "localhost";
 
 export const API = axios.create({
-    baseURL: API_URL_DEV,
+    baseURL: isDev ? "http://localhost:8080/api/v1" : "/api/v1",
     headers: {
         "Content-Type": "application/json",
     },
     timeout: 30000,
-})
+});

@@ -4,7 +4,7 @@ import { ChecklistResponseDTO } from "../DTO/response/ChecklistResponse";
 
 export const getAllChecklist = async () => {
     try {
-        const response = await API.get("/api/v1/checklists")
+        const response = await API.get("/checklists")
         
         return response.data;
     } catch (error) {
@@ -15,7 +15,7 @@ export const getAllChecklist = async () => {
 
 export const getChecklistById = async (id: string) => {
     try {
-        const response = await API.get(`/api/v1/checklists/${id}`)
+        const response = await API.get(`/checklists/${id}`)
         
         if(response.status !== 200) {
             throw new Error("Failed to fetch /checklists")
@@ -29,7 +29,7 @@ export const getChecklistById = async (id: string) => {
 
 export const createChecklist = async (data: ChecklistRequestDTO) => {
     try {
-        const response = await API.post<ChecklistResponseDTO>("/api/v1/checklists", data)
+        const response = await API.post<ChecklistResponseDTO>("/checklists", data)
         return response.data
     } catch (error) {
         console.error("Error creating checklist:", error)
@@ -39,7 +39,7 @@ export const createChecklist = async (data: ChecklistRequestDTO) => {
 
 export const updateChecklist = async (id: string, data: ChecklistRequestDTO) => {
     try {
-        const response = await API.put<ChecklistResponseDTO>(`/api/v1/checklists/${id}`, data)
+        const response = await API.put<ChecklistResponseDTO>(`/checklists/${id}`, data)
         return response.data
     } catch (error) {
         console.error("Error updating checklist:", error)
@@ -49,7 +49,7 @@ export const updateChecklist = async (id: string, data: ChecklistRequestDTO) => 
 
 export const deleteChecklist = async (id: string) => {
     try {
-        const response = await API.delete(`/api/v1/checklists/${id}`)
+        const response = await API.delete(`/checklists/${id}`)
         return response.data
     } catch (error) {
         console.error("Error deleting checklist:", error)
