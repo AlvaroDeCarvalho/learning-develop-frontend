@@ -1,7 +1,6 @@
 export class ChecklistResponseDTO {
     Id: string
     message: string
-
     atCreate: Date
     atUpdate: Date
     atDelete: Date
