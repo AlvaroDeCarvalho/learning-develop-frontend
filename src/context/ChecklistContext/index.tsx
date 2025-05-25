@@ -4,8 +4,6 @@ import { createContext, Dispatch, ReactNode, SetStateAction, useCallback, useEff
 import { ChecklistResponseDTO } from "../../service/DTO/response/ChecklistResponse";
 interface registerContextProps {
   allChecklist: ChecklistResponseDTO[] 
-  checklist: ChecklistResponseDTO 
-  setChecklist:  Dispatch<SetStateAction<ChecklistResponseDTO>>
   setAllChecklist: Dispatch<SetStateAction<ChecklistResponseDTO[] >>
   createNewChecklist: (data: ChecklistRequestDTO) => Promise<void>;
   editChecklist: (id: string, data: ChecklistRequestDTO) => Promise<void>;
@@ -20,8 +18,6 @@ import { ChecklistRequestDTO } from "../../service/DTO/request/ChecklistRequestD
 
 export const ChecklistProvider = ({ children }: { children: ReactNode }) => {
   const [allChecklist, setAllChecklist] = useState<ChecklistResponseDTO[]>([]);
-  const [checklist, setChecklist] = useState<ChecklistResponseDTO>( {} as ChecklistResponseDTO ) ;
-        
     const reloadChecklist = useCallback(async () => {
         try {
           const response = await getAllChecklist();
@@ -38,7 +34,7 @@ export const ChecklistProvider = ({ children }: { children: ReactNode }) => {
       const createNewChecklist = useCallback(async (data: ChecklistRequestDTO) => {
         try {
           const response = await createChecklist(data);
-          setChecklist(response);
+          setAllChecklist((prev) => [...prev, response]);
           reloadChecklist();
         } catch (error) {
           console.error("Erro ao criar checklist:", error);
@@ -49,7 +45,7 @@ export const ChecklistProvider = ({ children }: { children: ReactNode }) => {
       const editChecklist = useCallback(async (id: string, data: ChecklistRequestDTO) => {
         try {
           const response = await updateChecklist(id, data);
-          setChecklist(response);
+          setAllChecklist((prev) => [...prev.filter((item) => item.Id !== id), response]);
           reloadChecklist();
         } catch (error) {
           console.error("Erro ao atualizar checklist:", error);
@@ -73,9 +69,7 @@ export const ChecklistProvider = ({ children }: { children: ReactNode }) => {
     return (
         <checklistContext.Provider value={{ 
           allChecklist,
-          checklist,
           setAllChecklist,
-          setChecklist,
           createNewChecklist,
           editChecklist,
           deleteChecklistNow

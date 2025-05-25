@@ -105,3 +105,38 @@ export const ButtonDelete = styled(ButtonEdit)`
     margin-left: 15px;
 
 `
+
+export const FilterContainer = styled.div`
+    width: 80%;    
+    display: flex;
+    flex: 1 1 25%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    gap: 12px;
+    width: 100%;
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        gap: 10px;
+    }
+
+`;
+
+export const FilterButton = styled.button`
+    width: 100%;
+    max-width: 230px;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 1rem;
+    width: 100%;
+    cursor: pointer;
+    color: white;
+    font-size: 1.25rem;
+    background-color: #007BFF;
+`;

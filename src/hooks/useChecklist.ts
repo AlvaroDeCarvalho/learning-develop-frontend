@@ -2,23 +2,52 @@ import { useContext, useState } from "react";
 import { ChecklistRequestDTO } from "../service/DTO/request/ChecklistRequestDTO";
 import { ChecklistResponseDTO } from "../service/DTO/response/ChecklistResponse";
 import { checklistContext } from "../context/ChecklistContext";
+import { useFilterChecklist } from "./useFilterChecklist";
+import { generatePeriod } from "../utils/getYearFilter";
 
+interface IPeriod {
+  dataInicial: string | Date;
+  dataFinal: string | Date;
+}
  const useChecklist = () => {
  const [inputValue, setInputValue] = useState("");
  const [checklistBeingEdited, setChecklistBeingEdited] = useState<ChecklistResponseDTO | null>(null);
   const {
         allChecklist,
-        checklist,
-        setChecklist, 
         createNewChecklist,
         deleteChecklistNow,
         editChecklist,
          setAllChecklist
         } = useContext(checklistContext)
 
- const isEditing = checklistBeingEdited !== null;
 
-const handleSubmit = async () => {
+        
+const {
+      control,
+      errors,
+      handleSubmit ,
+      isMesFinalDisabled,
+      isMesInicialDisabled,
+      anoFinal,
+      anoInicial,
+     } = useFilterChecklist()
+
+
+const isEditing = checklistBeingEdited !== null;
+const [periodo, setPeriodo] = useState<IPeriod>()
+
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const onSubmit = (data: any) => {
+  const dataInicial = `${data.mesInicial}/${data.anoInicial}`;
+  const dataFinal = `${data.mesFinal}/${data.anoFinal}`;
+
+  setPeriodo(generatePeriod(dataInicial, dataFinal));
+  console.log("Form data:", data);
+}
+const handleAction = handleSubmit(onSubmit);
+
+const handleSubmitForm = async () => {
     if (inputValue.trim() === "") return;
   
     const newItem: ChecklistRequestDTO = {
@@ -53,19 +82,25 @@ const handleSubmit = async () => {
   return {
     inputValue,
     allChecklist,
-    checklist,
     isEditing,
     checklistBeingEdited,
+    control,
+    periodo,
+    errors,
     setInputValue,
-    setChecklist, 
     createNewChecklist,
     deleteChecklistNow,
     editChecklist,
     setAllChecklist,
-    handleSubmit,
+    handleSubmitForm,
+    handleAction,
     handleEdit,
     handleDelete,
-    handleCancelEdit
+    handleCancelEdit,
+    isMesFinalDisabled,
+    isMesInicialDisabled,
+    anoFinal,
+    anoInicial,
   }
 }
 
