@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    width: 100vw;
+    width: 99vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,22 +43,11 @@ export const Input = styled.input`
     }
 `
 
-export const List = styled.ul`
+export const List = styled.div`
     list-style: none;
-    padding: 0;
-    margin: 0;
+    padding-top: 10rem;
     width: 100%;
 `;
-
-export const ListItem = styled.li`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px 0;
-    border-bottom: 1px solid #ccc;
-
-`
 
 export const ButtonAdd = styled.button`
     display: flex;
@@ -107,7 +96,7 @@ export const ButtonDelete = styled(ButtonEdit)`
 `
 
 export const FilterContainer = styled.div`
-    width: 80%;    
+    width: 100%;    
     display: flex;
     flex: 1 1 25%;
     flex-direction: column;
@@ -115,7 +104,6 @@ export const FilterContainer = styled.div`
     justify-content: center;
     margin-left: 10px;
     gap: 12px;
-    width: 100%;
 
     .row {
         display: flex;
@@ -128,9 +116,20 @@ export const FilterContainer = styled.div`
 
 `;
 
+export const FilterButtonContainer = styled.div`
+    width: 40%;
+    
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    margin-top: 10px;
+    gap: 10px;
+    flex-direction: row;
+
+`
+
 export const FilterButton = styled.button`
     width: 100%;
-    max-width: 230px;
     padding: 0.75rem;
     border: none;
     border-radius: 1rem;
@@ -139,4 +138,14 @@ export const FilterButton = styled.button`
     color: white;
     font-size: 1.25rem;
     background-color: #007BFF;
+
 `;
+
+export const MessageError = styled.h4`
+    width: 100%;
+    text-align: start;
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    margin-bottom: 0;
+`

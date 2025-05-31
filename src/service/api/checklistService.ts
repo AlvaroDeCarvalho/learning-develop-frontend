@@ -1,10 +1,13 @@
 import { API } from "."
 import { ChecklistRequestDTO } from "../DTO/request/ChecklistRequestDTO"
+import { FilterChecklist } from "../DTO/request/FilterChecklist";
 import { ChecklistResponseDTO } from "../DTO/response/ChecklistResponse";
 
-export const getAllChecklist = async () => {
+export const getAllChecklist = async (params: Partial<FilterChecklist>) => {
     try {
-        const response = await API.get("/checklists")
+        const response = await API.get("/checklists",  {
+           params: params
+        })
         
         return response.data;
     } catch (error) {
@@ -13,10 +16,22 @@ export const getAllChecklist = async () => {
     }
 }
 
+export const getFilterChecklist =async (params: Partial<FilterChecklist>) => {
+    try {
+        const response = await API.get("/checklists/filter", {
+            params: params
+        })
+        return response.data
+    } catch (error) {
+        console.log("Error filtering checklist:", error)
+        throw error
+        
+    }
+}
+
 export const getChecklistById = async (id: string) => {
     try {
         const response = await API.get(`/checklists/${id}`)
-        
         if(response.status !== 200) {
             throw new Error("Failed to fetch /checklists")
         }

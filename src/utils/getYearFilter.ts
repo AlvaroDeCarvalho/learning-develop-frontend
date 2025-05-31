@@ -40,7 +40,7 @@ export const generatePeriod = (startDate: string, endDate: string) => {
     const end = new Date(Number(endYear), Number(endMonth) - 1);
 
     return {
-        dataInicial: start.toISOString().slice(0, 10),
-        dataFinal: end.toISOString().slice(0, 10),
+        dataInicial: start.toISOString().slice(0,7),
+        dataFinal: end.toISOString().slice(0, 7),
     }
 }

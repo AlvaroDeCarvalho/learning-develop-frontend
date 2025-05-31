@@ -25,7 +25,7 @@ export const DropdownFilter = ({
   name,
   control,
   options,
-  disabled,
+  disabled= false,
   onChange,
 }: DropdownFilterProps) => {
   return (
@@ -33,7 +33,7 @@ export const DropdownFilter = ({
       name={name}
       control={control}
       render={({ field }) => (
-        <S.DropdownContainer disabled={disabled}>
+        <S.DropdownContainer>
           {label && <S.StyledLabel>{label}</S.StyledLabel>}
           <S.StyledSelect
             {...field}
@@ -42,8 +42,9 @@ export const DropdownFilter = ({
               field.onChange(e.target.value);
               onChange && onChange(e.target.value);
             }}
+            disabled={disabled}
           >
-            <option value="">{placeholder}</option>
+            <option value="" disabled={disabled}>{placeholder}</option>
             {options.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
